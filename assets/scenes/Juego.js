@@ -24,16 +24,14 @@ export default class Juego extends Phaser.Scene {
     // Parameters are the name you gave the tileset in Tiled and then the key of the tileset image in
     // Phaser's cache (i.e. the name you used in preload)
     const capaFondo = map.addTilesetImage("sky", "tilesFondo");
-    const capaPlataform = map.addTilesetImage("platform_atlas", "tilesPlataforma");
+    const capaPlataform = map.addTilesetImage(
+      "platform_atlas",
+      "tilesPlataforma"
+    );
 
     // Parameters: layer name (or index) from Tiled, tileset, x, y
     const fondoLayer = map.createLayer("background", capaFondo, 0, 0);
-    const plataformaLayer = map.createLayer(
-      "platform",
-      capaPlataform,
-      0,
-      0
-    );
+    const plataformaLayer = map.createLayer("platform", capaPlataform, 0, 0);
     const objectosLayer = map.getObjectLayer("objects");
 
     plataformaLayer.setCollisionByProperty({ collision: true });
@@ -45,7 +43,7 @@ export default class Juego extends Phaser.Scene {
     let spawnPoint = map.findObject("objects", (obj) => obj.name === "player");
     console.log(spawnPoint);
     // The player and its settings
-    this.jugador = this.physics.add.sprite(spawnPoint.x, spawnPoint.y, "dude");
+    this.jugador = this.physics.add.sprite("dude", spawnPoint.x, spawnPoint.y);
 
     //  Player physics properties. Give the little guy a slight bounce.
     this.jugador.setBounce(0.1);
@@ -53,12 +51,11 @@ export default class Juego extends Phaser.Scene {
 
     spawnPoint = map.findObject("objects", (obj) => obj.name === "salida");
     console.log("spawn point salida ", spawnPoint);
-    if (spawnPoint){
+    if (spawnPoint) {
       this.salida = this.physics.add
-      .sprite(spawnPoint.x, spawnPoint.y, "salida") 
-      .setScale(0.2);
+        .sprite(spawnPoint.x, spawnPoint.y, "salida")
+        .setScale(0.2);
     }
-    
 
     //  Input Events
     this.cursors = this.input.keyboard.createCursorKeys();
@@ -66,8 +63,8 @@ export default class Juego extends Phaser.Scene {
     // Create empty group of starts
     this.estrellas = this.physics.add.group();
     this.bombs = this.physics.add.group({
-      immovable:true,
-      allowGravity:false
+      immovable: true,
+      allowGravity: false,
     });
     // find object layer
     // if type is "stars", add to stars group
@@ -83,30 +80,23 @@ export default class Juego extends Phaser.Scene {
           break;
         }
         case "bomb": {
-          const bomb= this.bombs.create(x,y, "bomb").setBounce(1,1);
+          const bomb = this.bombs.create(x, y, "bomb").setBounce(1, 1);
           break;
         }
       }
-     
-
-    
-    
-    
     });
-     
 
     this.salida.visible = false;
-     this.physics.add.collider(this.bombs, plataformaLayer)
-     this.physics.add.collider(
+    this.physics.add.collider(this.bombs, plataformaLayer);
+    this.physics.add.collider(
       this.bombs,
       this.jugador,
       this.bombakill,
       null,
       this
+    );
 
-      );
-
-     this.physics.add.collider(this.jugador, plataformaLayer);
+    this.physics.add.collider(this.jugador, plataformaLayer);
     this.physics.add.collider(this.estrellas, plataformaLayer);
     this.physics.add.collider(
       this.jugador,
@@ -133,33 +123,25 @@ export default class Juego extends Phaser.Scene {
     );
 
     this.timer = 20;
-    this.timeText = this.add.text(750 , 20, this.timer, {
+    this.timeText = this.add.text(750, 20, this.timer, {
       fontSize: "35px",
       fontStyle: "bold",
       fill: "#FFFFFF",
-    }); 
+    });
     this.time.addEvent({
       delay: 1000,
       callback: this.onSecond,
       callbackScope: this,
-      loop: true
-    })
+      loop: true,
+    });
     //velocidad bomb
-    this.bombs.setVelocity(200,200);
+    this.bombs.setVelocity(200, 200);
 
-    this.cameras.main.startFollow(this.jugador)
-    this.cameras.main.setBounds(0,0, map.widthInPixels, map.heigthInPixels);
+    this.cameras.main.startFollow(this.jugador);
+    this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heigthInPixels);
 
     this.cantidadEstrellasTexto.setScrollFactor(0);
     this.timeText.setScrollFactor(0);
-    
-
-
-
-
-
-
-
   }
 
   update() {
@@ -192,9 +174,9 @@ export default class Juego extends Phaser.Scene {
 
     // todo / para hacer: sumar puntaje
     //this.cantidadEstrellas = this.cantidadEstrellas + 1;
-    if(this.estrellas.getTotalUsed()=== 0){
-      this.salida.visible=true;
-    };
+    if (this.estrellas.getTotalUsed() === 0) {
+      this.salida.visible = true;
+    }
 
     this.cantidadEstrellas++;
 
@@ -202,10 +184,10 @@ export default class Juego extends Phaser.Scene {
       "Estrellas recolectadas: " + this.cantidadEstrellas
     );
   }
-  bombakill(jugador, bombs){
+  bombakill(jugador, bombs) {
     this.scene.restart();
   }
-  
+
   esVencedor(jugador, salida) {
     // if (this.cantidadEstrellas >= 5)
     // sacamos la condicion porque esta puesta como 4to parametro en el overlap
@@ -217,16 +199,13 @@ export default class Juego extends Phaser.Scene {
       y: "este es un dato de muestra",
       z: "este es otro atributo enviado a otro escena",
     });
-    
   }
-  
 
-  onSecond (){
+  onSecond() {
     this.timer--;
     this.timeText.setText(this.timer);
-    if ( this.timer <=0){
+    if (this.timer <= 0) {
       this.gameOver = true;
     }
   }
 }
-

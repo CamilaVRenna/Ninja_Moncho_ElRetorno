@@ -10,7 +10,7 @@ export default class Precarga extends Phaser.Scene {
     // load assets
     this.load.tilemapTiledJSON("map", "./public/tilemaps/basic.json");
     this.load.tilemapTiledJSON("map2", "./public/tilemaps/nivel4.json");
-    this.load.image("tilesFondo", "./public/images/sky_atlas.png");
+    this.load.image("tilesFondo", "./public/images/sky.png");
     this.load.image("tilesPlataforma", "./public/images/platform_atlas.png");
     this.load.image("bomb", "./public/images/bomb.png");
     this.load.image("star", "./public/images/star.png");
@@ -26,7 +26,7 @@ export default class Precarga extends Phaser.Scene {
   create() {
     //  Our player animations, turning, walking left and walking right.
     // se crea una sola vez, para que no de error en el restart de la escena
-    
+
     this.anims.create({
       key: "left",
       frames: this.anims.generateFrameNumbers("dude", { start: 0, end: 3 }),
