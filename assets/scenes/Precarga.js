@@ -8,12 +8,26 @@ export default class Precarga extends Phaser.Scene {
 
   preload() {
     // load assets
-    this.load.tilemapTiledJSON("map", "./public/tilemaps/basic.json");
-    this.load.tilemapTiledJSON("map2", "./public/tilemaps/nivel4.json");
-    this.load.image("tilesFondo", "./public/images/sky.png");
-    this.load.image("tilesPlataforma", "./public/images/platform_atlas.png");
-    this.load.image("bomb", "./public/images/bomb.png");
-    this.load.image("star", "./public/images/star.png");
+    this.load.tilemapTiledJSON("map1", "../public/tilemaps/nivel1.json");
+    this.load.tilemapTiledJSON("map2", "../public/tilemaps/nivel2.json");
+    this.load.tilemapTiledJSON("map3", "../public/tilemaps/nivel3.json");
+
+    this.load.image("sky", "./public/images/sky.png");
+    this.load.image("plataforma", "./public/images/platform.png");
+    this.load.image("plataforma2", "./public/images/platform2.png");
+   
+
+    this.load.image("menuBackGround", "../public/images/menuBackGround.png");
+    this.load.image("startButton", "../public/images/startButton.png");
+    this.load.image("startButtonPressed", "../public/images/startButtonPressed.png");
+    this.load.image("win", "../public/images/win.png");
+    this.load.image("star", "../public/images/star.png");
+    this.load.image("bomba", "../public/images/bomb.png");
+    this.load.spritesheet("Enemy", "../public/images/enemy.png",{
+      frameWidth: 68,
+      frameHeight: 98,
+    });
+    this.load.image("yEnemy", "../public/images/yEnemy.png");
 
     this.load.spritesheet("dude", "./public/images/dude.png", {
       frameWidth: 65,
@@ -26,7 +40,6 @@ export default class Precarga extends Phaser.Scene {
   create() {
     //  Our player animations, turning, walking left and walking right.
     // se crea una sola vez, para que no de error en el restart de la escena
-
     this.anims.create({
       key: "left",
       frames: this.anims.generateFrameNumbers("dude", { start: 0, end: 3 }),
