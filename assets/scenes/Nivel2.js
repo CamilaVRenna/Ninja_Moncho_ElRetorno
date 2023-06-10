@@ -1,5 +1,3 @@
-// URL to explain PHASER scene: https://rexrainbow.github.io/phaser3-rex-notes/docs/site/scene/
-
 export default class Nivel2 extends Phaser.Scene {
   constructor() {
     // key of the scene
