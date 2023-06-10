@@ -12,11 +12,14 @@ export default class juego extends Phaser.Scene {
     // init variables
     // take data passed from other scenes
     // data object param {}
+    
     this.nivel = 1;
     this.cantidadEstrellas = 0;
     console.log("Prueba !");
     this.gameOver = false;
+   
   }
+
 
   create() {
     // todo / para hacer: texto de puntaje
@@ -25,7 +28,7 @@ export default class juego extends Phaser.Scene {
     // Parameters are the name you gave the tileset in Tiled and then the key of the tileset image in
     // Phaser's cache (i.e. the name you used in preload)
     const capaFondo = map.addTilesetImage("sky", "sky");
-    const capaPlataforma = map.addTilesetImage("plataforma","platform" );
+    const capaPlataforma = map.addTilesetImage("plataforma","plataforma" );
     
 
 // Parameters: layer name (or index) from Tiled, tileset, x, y
@@ -34,7 +37,7 @@ export default class juego extends Phaser.Scene {
     
     const objectosLayer = map.getObjectLayer("objetos");
 
-    plataformaLayer.setCollisionByProperty({ colision: true });
+    plataformaLayer.setCollisionByProperty({colision:true });
     console.log("spawn point player", objectosLayer);
 
     // crear el jugador
@@ -43,16 +46,19 @@ export default class juego extends Phaser.Scene {
     console.log(spawnPoint);
     // The player and its settings
 
-    this.jugador = this.physics.add.sprite(137.56, 814.023, "dude");
+    this.jugador = this.physics.add.sprite(88, 950, "dude");
 
     //  Player physics properties. Give the little guy a slight bounce.
-    this.jugador.setBounce(0.1);
+    this.jugador.setBounce(0.01);
     this.jugador.setCollideWorldBounds(true);
+    this.jugador.setVelocity(10)
+  
 
+    
     spawnPoint = map.findObject("objetos", (obj) => obj.name === "salida");
     console.log("spawn point salida ", spawnPoint);
     this.salida = this.physics.add
-      .sprite(1257, 843, "salida")
+      .sprite(112, 248, "salida")
       .setScale(0.2);
 
     //  Input Events
@@ -75,7 +81,7 @@ export default class juego extends Phaser.Scene {
         case "estrella": {
           // add star to scene
           // console.log("estrella agregada: ", x, y);
-          const star = this.estrellas.create(x, y, "star");
+          const estrella = this.estrellas.create(x, y, "estrella");
           break;
         }
         case "bomba": {
@@ -120,10 +126,9 @@ export default class juego extends Phaser.Scene {
       "Nivel: " +
         this.nivel +
         " / Estrellas recolectadas: " +
-        this.cantidadEstrellas.toString(),
       { fontSize: "24px", fontFamily: "impact", fill: "#FFFFFF" }
     );
-
+    this.cantidadEstrellas.toString(),
     //add timer
     this.time.addEvent({
       delay: 1000,
@@ -133,34 +138,45 @@ export default class juego extends Phaser.Scene {
     });
 
     //timer appears
-    this.timer = 60;
-    this.timerText = this.add.text(950, 10, this.timer, {
+    this.timer = 30;
+    this.timerText = this.add.text(750,5, this.timer, {
       fontSize: "32px",
       fontFamily: "impact",
       fill: "#FFFFFF",
     });
-
+    this.timerText.setScrollFactor(0);
     //add bomb bounce
-    this.bomb.setVelocity(200, 200);
+    this.bomb.setVelocity(220, 220);
+    this.cameras.main.startFollow(this.jugador);
+     // world bounds
+     this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 
+     // camara dont go out of the map
+     this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+ 
+     this.scoreText = this.add.text(10, 20, `Nivel: 1 `);
+     // fijar texto para que no se mueva con la camara
+     this.scoreText.setScrollFactor(0);
+  
+    
   }
-
+ 
   update() {
+    if (this.gameOver) {
+      this.scene.start("GameOver")
+    }
     // update game objects
     // check input
     //move left
-    if (this.gameOver) {
-      this.scene.start("GameOver")
-      
-    }
+
 
     if (this.cursors.left.isDown) {
-      this.jugador.setVelocityX(-160);
+      this.jugador.setVelocityX(-260);
       this.jugador.anims.play("left", true);
     }
     //move right
     else if (this.cursors.right.isDown) {
-      this.jugador.setVelocityX(160);
+      this.jugador.setVelocityX(260);
       this.jugador.anims.play("right", true);
     }
     //stop
@@ -187,24 +203,17 @@ export default class juego extends Phaser.Scene {
 
     this.cantidadEstrellas++;
 
-    this.cantidadEstrellasTexto.setText(
+    this.cantidadEstrellasTexto.setText(30,30,
       "Nivel: " +
         this.nivel +
         " / Estrellas recolectadas: " +
         this.cantidadEstrellas.toString()
     );
+    this.cantidadEstrellasTexto.setScrollFactor(0);
   }
 
-  onSecond() {
-    this.timer--;
-    this.timerText.setText(this.timer);
-    if (this.timer <= 0) {
-      this.gameOver = true;
-    }
-  }
-
+  
   bombKill(jugador, bomb) {
-    this.backGroundMusic.stop();
     this.scene.restart();
   }
 
@@ -213,11 +222,16 @@ export default class juego extends Phaser.Scene {
     // sacamos la condicion porque esta puesta como 4to parametro en el overlap
 
     console.log("estrellas recolectadas", this.cantidadEstrellas);
-    this.backGroundMusic.stop();
-    this.scene.start("nivel2", {
+    this.scene.start("Nivel2", {
       cantidadEstrellas: this.cantidadEstrellas,
     });
   }
-
+  onSecond() {
+    this.timer--;
+    this.timerText.setText(this.timer);
+    if (this.timer <= 0) {
+      this.gameOver = true;
+    }
+  }
  
 }

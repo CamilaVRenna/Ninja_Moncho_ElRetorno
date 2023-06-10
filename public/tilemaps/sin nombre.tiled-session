@@ -1,0 +1,50 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "",
+    "expandedProjectPaths": [
+    ],
+    "file.lastUsedOpenFilter": "Todos los archivos (*)",
+    "fileStates": {
+        "": {
+            "scaleInDock": 0.5,
+            "scaleInEditor": 1
+        },
+        "sin nombre.tmx": {
+            "scale": 0.5,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 706,
+                "y": 180
+            }
+        },
+        "sin nombre.tmx#plataforma": {
+            "scaleInDock": 0.33,
+            "scaleInEditor": 0.75
+        },
+        "sin nombre.tmx#platform": {
+            "scaleInEditor": 1
+        },
+        "sin nombre.tmx#sky": {
+            "scaleInDock": 0.25
+        }
+    },
+    "last.exportedFilePath": "C:/Users/camil/OneDrive/Documentos/programacion/indio_mocho/public/tilemaps",
+    "last.externalTilesetPath": "C:/Users/camil/OneDrive/Documentos/programacion/indio_mocho/public/images",
+    "last.imagePath": "C:/Users/camil/OneDrive/Documentos/programacion/indio_mocho/public/images",
+    "map.height": 33,
+    "map.lastUsedExportFilter": "JSON map files (*.tmj *.json)",
+    "map.lastUsedFormat": "tmx",
+    "map.width": 51,
+    "openFiles": [
+    ],
+    "project": "sin nombre.tiled-project",
+    "property.type": "bool",
+    "recentFiles": [
+        "sin nombre.tmx"
+    ],
+    "tileset.embedInMap": true,
+    "tileset.lastUsedFilter": "Todos los archivos (*)"
+}

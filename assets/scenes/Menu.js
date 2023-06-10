@@ -4,8 +4,8 @@ export default class Menu extends Phaser.Scene {
     }
   
     create() {
-      this.add.image(500, 400, "menuBackGround");
-      let startButton = this.add.image(300, 500, "startButton").setInteractive();
+      this.add.image(500, 350, "menuBackGround");
+      let startButton = this.add.image(250, 400, "startButton").setInteractive();
   
       startButton.on("pointerdown", () => {
         startButton.setTexture("startButtonPressed");

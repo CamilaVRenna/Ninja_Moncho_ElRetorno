@@ -13,28 +13,30 @@ export default class Precarga extends Phaser.Scene {
     this.load.tilemapTiledJSON("map3", "../public/tilemaps/nivel3.json");
 
     this.load.image("sky", "./public/images/sky.png");
-    this.load.image("plataforma", "./public/images/platform.png");
-    this.load.image("plataforma2", "./public/images/platform2.png");
+    this.load.image("plataforma", "./public/images/plataforma.jpg");
+   
    
 
     this.load.image("menuBackGround", "../public/images/menuBackGround.png");
     this.load.image("startButton", "../public/images/startButton.png");
+    this.load.image("retryButton", "../public/images/retryButton.png");
+    this.load.image("retryButtonPressed", "../public/images/retryButtonPressed.png");
     this.load.image("startButtonPressed", "../public/images/startButtonPressed.png");
     this.load.image("win", "../public/images/win.png");
-    this.load.image("star", "../public/images/star.png");
+    this.load.image("estrella", "../public/images/star.png");
     this.load.image("bomba", "../public/images/bomb.png");
-    this.load.spritesheet("Enemy", "../public/images/enemy.png",{
+    this.load.spritesheet("enemy", "../public/images/enemy.png",{
       frameWidth: 68,
       frameHeight: 98,
     });
     this.load.image("yEnemy", "../public/images/yEnemy.png");
-
     this.load.spritesheet("dude", "./public/images/dude.png", {
       frameWidth: 65,
       frameHeight: 91,
     });
-
+  
     this.load.image("salida", "./public/images/salida.png");
+    this.load.image("gameOver","./public/images/gameOver.png")
   }
 
   create() {
@@ -59,8 +61,10 @@ export default class Precarga extends Phaser.Scene {
       frameRate: 10,
       repeat: -1,
     });
-
+  // //////
+    
+  
     // init scene juego
-    this.scene.start("juego");
+    this.scene.start("Menu");
   }
 }
