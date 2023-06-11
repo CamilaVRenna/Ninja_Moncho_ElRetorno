@@ -136,7 +136,7 @@ export default class juego extends Phaser.Scene {
     });
 
     //timer appears
-    this.timer = 30;
+    this.timer = 40;
     this.timerText = this.add.text(750,5, this.timer, {
       fontSize: "32px",
       fontFamily: "impact",

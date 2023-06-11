@@ -132,7 +132,7 @@ export default class Nivel2 extends Phaser.Scene {
         });
     
         //timer appears
-        this.timer = 45;
+        this.timer = 55;
         this.timerText = this.add.text(750,5, this.timer, {
           fontSize: "32px",
           fontFamily: "impact",
