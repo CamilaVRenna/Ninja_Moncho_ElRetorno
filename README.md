@@ -1,4 +1,4 @@
-# Indio_mocho
+# Ninja Moncho "El Retorno"
 trabajo practico nº2
 
 tuve problemas, pero hice mi mejor esfuerzo, y le metí ganas.
